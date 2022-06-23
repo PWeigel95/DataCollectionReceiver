@@ -1,12 +1,5 @@
 package service;
 
-import communication.Producer;
-
-import java.sql.*;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 public class DataCollectionReceiverService extends BaseService {
@@ -27,23 +20,19 @@ public class DataCollectionReceiverService extends BaseService {
     @Override
     protected String executeInternal(String input) {
 
-        //sort the data to the according job
-        List<String> listOfKwh = new ArrayList<>();
-        listOfKwh.add(input);
+        String[] inputList = input.split(":");
 
+        int kwh = Integer.parseInt(inputList[0]);
 
-        System.out.println(listOfKwh);
+        System.out.println(kwh);
 
-        for (String element: listOfKwh){
-            totalKwh += Integer.parseInt(element);
-        }
+        totalKwh += kwh;
 
-        System.out.println("Total KWH:" + totalKwh);
-
-        //TODO: check if all data has been collected
-
+        System.out.println("Endstand: " + totalKwh);
         return String.valueOf(totalKwh);
     }
+
+
 
 }
 
