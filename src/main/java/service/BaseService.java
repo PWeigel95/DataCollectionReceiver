@@ -9,8 +9,6 @@ public abstract class BaseService implements Runnable {
     private final String outDestination;
     private final String brokerUrl;
 
-    private int totalKwh = 0;
-
     public BaseService(String inDestination, String outDestination, String brokerUrl) {
         this.inDestination = inDestination;
         this.outDestination = outDestination;
@@ -35,7 +33,10 @@ public abstract class BaseService implements Runnable {
         String output = executeInternal(input);
 
         //TODO: send only if all totalKwh are
-        Producer.send(output, outDestination, brokerUrl);
+        System.out.println("DAS IST DAS OUTPUT:" + output);
+        if(output != null){
+            Producer.send(output, outDestination, brokerUrl);
+        }
 
     }
 

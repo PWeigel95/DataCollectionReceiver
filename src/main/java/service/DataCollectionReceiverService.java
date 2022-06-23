@@ -8,6 +8,7 @@ public class DataCollectionReceiverService extends BaseService {
 
 
     private int totalKwh = 0;
+    private int count = 0;
 
     public DataCollectionReceiverService(String inDestination, String outDestination, String brokerUrl) {
         super(inDestination, outDestination, brokerUrl);
@@ -20,16 +21,33 @@ public class DataCollectionReceiverService extends BaseService {
     @Override
     protected String executeInternal(String input) {
 
+        String output = "";
+
         String[] inputList = input.split(":");
 
         int kwh = Integer.parseInt(inputList[0]);
+        int amountOfStations = Integer.parseInt(inputList[1]);
 
-        System.out.println(kwh);
+        System.out.println("KWH:" + kwh);
 
         totalKwh += kwh;
+        count++;
 
-        System.out.println("Endstand: " + totalKwh);
-        return String.valueOf(totalKwh);
+        System.out.println("Count:" + count);
+
+        if(count < amountOfStations){
+            return null;
+        }
+        else
+        {
+            output = String.valueOf(totalKwh);
+            totalKwh = 0;
+            count = 0;
+            System.out.println("Endstand: " + output);
+            return output;
+
+        }
+
     }
 
 
