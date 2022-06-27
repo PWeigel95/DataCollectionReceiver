@@ -27,6 +27,8 @@ public class DataCollectionReceiverService extends BaseService {
 
         int kwh = Integer.parseInt(inputList[0]);
         int amountOfStations = Integer.parseInt(inputList[1]);
+        String invoiceId = inputList[2];
+        String customerId = inputList[3];
 
         System.out.println("KWH:" + kwh);
 
@@ -44,7 +46,7 @@ public class DataCollectionReceiverService extends BaseService {
             totalKwh = 0;
             count = 0;
             System.out.println("Endstand: " + output);
-            return output;
+            return invoiceId + ":" + output + ":" + customerId;
 
         }
 
